@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Event Registration</title>
+  
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f5f5f5;
+}
+
+main {
+  width: min(90%, 500px);
+  margin: 4rem auto;
+  padding: 2rem;
+
+  background: white;
+  border-radius: 0.75rem;
+}
+
+form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+input {
+  padding: 0.65rem;
+  font: inherit;
+}
+
+button {
+  padding: 0.7rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>Event Registration</h1>
+
+      <form id="registration-form">
+        <label>
+          Name
+          <input id="name" name="name" type="text" required />
+        </label>
+
+        <label>
+          Email
+          <input id="email" name="email" type="email" required />
+        </label>
+
+        <label>
+          Number of attendees
+          <input
+            id="attendees"
+            name="attendees"
+            type="number"
+            min="1"
+            max="10"
+            required
+          />
+        </label>
+
+        <button type="submit">Register</button>
+      </form>
+
+      <p id="success-message" hidden>Registration submitted!</p>
+    </main>
+  
+    <script type="module">
+const form = document.querySelector("#registration-form");
+const successMessage = document.querySelector("#success-message");
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  successMessage.hidden = false;
+});
+    </script>
+  </body>
+</html>
