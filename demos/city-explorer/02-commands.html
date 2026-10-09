@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>City Explorer</title>
+
+    <script>
+      var esriConfig = {
+        apiKeys: {
+          basemapStyles:
+            "YOUR_FRESH_RESTRICTED_ARCGIS_API_KEY"
+        }
+      }
+    </script>
+
+    <script type="module" src="https://js.arcgis.com/5.1/"></script>
+  
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin: 0.25rem 0 0;
+  color: #555;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  flex: 1;
+  min-height: 0;
+}
+
+arcgis-map {
+  width: 100%;
+  height: 100%;
+}
+
+#places {
+  padding: 1rem;
+  overflow-y: auto;
+  border-left: 1px solid #ddd;
+}
+
+#places h2 {
+  margin-top: 0;
+}
+
+#place-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.place-card {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  background: white;
+}
+
+.place-card h3 {
+  margin: 0.5rem 0;
+}
+
+.place-card p {
+  margin: 0 0 1rem;
+  color: #555;
+}
+
+.category {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.view-details {
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.place-dialog {
+  width: min(90vw, 500px);
+  padding: 2rem;
+
+  border: 0;
+  border-radius: 0.75rem;
+
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.25);
+}
+
+.place-dialog::backdrop {
+  background: rgb(0 0 0 / 0.45);
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+
+  border: 0;
+  background: transparent;
+
+  font-size: 1.75rem;
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>City Explorer</h1>
+      <p>Explore places around Washington, DC.</p>
+    </header>
+
+    <main>
+      <arcgis-map
+        id="map"
+        basemap="arcgis/community"
+        center="-77.0369, 38.9072"
+        zoom="13"
+      >
+        <arcgis-zoom slot="top-left"></arcgis-zoom>
+      </arcgis-map>
+
+      <section id="places">
+        <h2>Places</h2>
+        <div id="place-list"></div>
+      </section>
+    </main>
+    <dialog id="place-dialog" class="place-dialog">
+      <button
+        id="dialog-close"
+        class="modal-close"
+        type="button"
+        aria-label="Close place details"
+        command="close"
+        commandfor="place-dialog"
+      >
+        ×
+      </button>
+
+      <span id="modal-category" class="category"></span>
+
+      <h2 id="modal-title"></h2>
+
+      <p id="modal-address"></p>
+    </dialog>
+  
+    <script type="module">
+const places = [
+  {
+    id: "lincoln-memorial",
+    name: "Lincoln Memorial",
+    category: "Monument",
+    address: "2 Lincoln Memorial Cir NW, Washington, DC",
+    longitude: -77.0502,
+    latitude: 38.8893,
+  },
+  {
+    id: "washington-monument",
+    name: "Washington Monument",
+    category: "Monument",
+    address: "2 15th St NW, Washington, DC",
+    longitude: -77.0353,
+    latitude: 38.8895,
+  },
+  {
+    id: "natural-history",
+    name: "National Museum of Natural History",
+    category: "Museum",
+    address: "10th St & Constitution Ave NW, Washington, DC",
+    longitude: -77.026,
+    latitude: 38.8913,
+  },
+  {
+    id: "wharf",
+    name: "The Wharf",
+    category: "Food & Entertainment",
+    address: "760 Maine Ave SW, Washington, DC",
+    longitude: -77.0261,
+    latitude: 38.879,
+  },
+  {
+    id: "national-gallery",
+    name: "National Gallery of Art",
+    category: "Museum",
+    address: "Constitution Ave NW, Washington, DC",
+    longitude: -77.0199,
+    latitude: 38.8913,
+  },
+  {
+    id: "meridian-hill",
+    name: "Meridian Hill Park",
+    category: "Park",
+    address: "16th St NW & W St NW, Washington, DC",
+    longitude: -77.0365,
+    latitude: 38.9211,
+  },
+];
+
+function renderPlaceCards() {
+  const placeList = document.querySelector("#place-list");
+
+  placeList.innerHTML = places
+    .map(
+      (place) => `
+        <article class="place-card">
+          <span class="category">${place.category}</span>
+
+          <h3>${place.name}</h3>
+
+          <p>${place.address}</p>
+
+          <button
+            class="view-details"
+            data-place-id="${place.id}"
+            type="button"
+            command="show-modal"
+            commandfor="place-dialog"
+          >
+            View details
+          </button>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+renderPlaceCards();
+
+const mapElement = document.querySelector("#map");
+
+const Graphic = await $arcgis.import("@arcgis/core/Graphic.js");
+
+await mapElement.viewOnReady();
+
+for (const place of places) {
+  const graphic = new Graphic({
+    geometry: {
+      type: "point",
+      longitude: place.longitude,
+      latitude: place.latitude,
+    },
+
+    symbol: {
+      type: "simple-marker",
+      size: 10,
+      color: "white",
+      outline: {
+        color: "black",
+        width: 2,
+      },
+    },
+
+    attributes: {
+      id: place.id,
+      name: place.name,
+      category: place.category,
+    },
+  });
+
+  mapElement.graphics.add(graphic);
+}
+
+const modalTitle = document.querySelector("#modal-title");
+const modalCategory = document.querySelector("#modal-category");
+const modalAddress = document.querySelector("#modal-address");
+
+document.querySelectorAll(".view-details").forEach((button) => {
+  button.addEventListener("click", () => {
+    const place = places.find(
+      (place) => place.id === button.dataset.placeId
+    );
+
+    if (!place) {
+      return;
+    }
+
+    modalTitle.textContent = place.name;
+    modalCategory.textContent = place.category;
+    modalAddress.textContent = place.address;
+  });
+});
+    </script>
+  </body>
+</html>
