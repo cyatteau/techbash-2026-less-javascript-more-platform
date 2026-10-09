@@ -3,15 +3,15 @@
 **Modern Browser APIs Front-End Developers Should Actually Use**  
 Courtney Yatteau · TechBash 2026
 
-Modern browsers can handle many interface behaviors that front-end developers still reach for JavaScript to build themselves. This talk looks at practical ways to let the platform own more of the generic UI plumbing while keeping JavaScript focused on application-specific behavior.
+Modern browsers can handle many interface behaviors that front-end developers still reach for JavaScript to build themselves. This repo contains the demos from the talk, focused on letting the platform own more generic UI behavior while keeping JavaScript focused on application-specific work.
 
 ## PAUSE before reaching for JavaScript
 
-- **P** — Pause before reaching for JavaScript
-- **A** — Ask what HTML and CSS can already do
-- **U** — Use the browser platform
-- **S** — Study support and progressive enhancement
-- **E** — Employ JavaScript where it adds real value
+- **P** - Pause before reaching for JavaScript
+- **A** - Ask what HTML and CSS can already do
+- **U** - Use the browser platform
+- **S** - Study support and progressive enhancement
+- **E** - Employ JavaScript where it adds real value
 
 The recurring question throughout the talk is:
 
@@ -59,20 +59,13 @@ YOUR_FRESH_RESTRICTED_ARCGIS_API_KEY
 
 Replace that value in your local copy with your own appropriately restricted API key before running the map demos.
 
-For the smoothest local setup, serve the repo with a tiny local web server instead of opening the files with `file://`:
+For the smoothest local setup, serve the repo with a small local web server instead of opening the files with `file://`:
 
 ```bash
 python -m http.server 8080
 ```
 
 Then open the demo you want from `http://localhost:8080/`.
-
-## Slides and speaker notes
-
-- [TechBash 2026 slides](slides/Less-JavaScript-More-Platform-TechBash-2026.pptx)
-- [Demo speaker script](speaker-notes/Demo-Speaker-Script.docx)
-
-The PowerPoint contains click-aligned speaker notes for the slide animations. The separate demo script covers the browser/code portions of the session.
 
 ## Key takeaway
 
