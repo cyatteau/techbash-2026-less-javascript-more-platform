@@ -61,9 +61,40 @@ The six City Explorer files use the ArcGIS Maps SDK for JavaScript from the CDN 
 YOUR_FRESH_RESTRICTED_ARCGIS_API_KEY
 ```
 
-**Before running a City Explorer demo**, replace the placeholder in that HTML file with your own ArcGIS API key with access to Basemap Styles. If you plan to deploy a live demo publicly, use an appropriately restricted key (for example, authorized referrers for the domain where it is hosted). Don't commit an unrestricted development key. The local map demos depend on network access to the ArcGIS CDN and services.
+**Before running a City Explorer demo**, create a key with access to the Basemap styles service and replace the placeholder in that file. See the step-by-step instructions below. The mapping demos need network access to the ArcGIS CDN and services.
 
 The non-map demos run without any key. Use an up-to-date browser with support for the newer APIs; behavior may differ across browsers. Always verify keyboard interactions, accessibility, browser support, and reduced-motion preferences.
+
+### Get your own API key (ArcGIS Location Platform)
+
+1. Sign in at **[location.arcgis.com](https://location.arcgis.com/)** with an ArcGIS Location Platform account. Select **My portal**.
+2. In your portal, go to **Content > My content > New item > Developer credentials > API key credentials**.
+3. Choose **Public application**, and enable the **Basemap styles service** privilege (`premium:user:basemaps`) for these demos. You do not need Places, Routing, or other privileges for the sample basemap.
+4. Follow the credential setup steps, configure appropriate **referrer restrictions** for your local or hosted site, generate an API key, and copy it. If using localhost and a hosted GitHub Pages site, account for both environments in your settings.
+5. Replace `YOUR_FRESH_RESTRICTED_ARCGIS_API_KEY` in each City Explorer HTML file you want to run. **Do not commit an unrestricted key to a public repository.** Keep your test key local, and use appropriately scoped credentials if publishing a live app.
+
+For illustrated, up-to-date setup instructions, see Esri's **[Create an API key tutorial](https://developers.arcgis.com/documentation/security-and-authentication/api-key-authentication/tutorials/create-an-api-key/location-platform/)**. Creating credentials requires an account with sufficient privileges.
+
+## Resources and documentation
+
+### Modern browser APIs used in this talk
+
+| Feature | Documentation |
+| --- | --- |
+| Native modal dialogs | [MDN: `<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog) and [`showModal()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal) |
+| Invoker Commands | [MDN: Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) (`command`, `commandfor`) |
+| Popover API | [MDN: Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) (`popover`, `popovertarget`) |
+| Native form validation | [MDN: Client-side form validation](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation) (`required`, `type`, `min`, `max`) |
+| View Transitions | [MDN: View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API) and [`document.startViewTransition()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition) |
+
+MDN reference pages include **browser compatibility** tables. Check support and test keyboard interaction, accessibility, and reduced-motion behavior in your target browsers. Remember that browser form validation improves the experience, but **server-side validation is still required** for real submissions.
+
+### ArcGIS mapping resources
+
+- **[ArcGIS Maps SDK for JavaScript documentation](https://developers.arcgis.com/javascript/latest/)**: API reference, examples, and guides for the mapping portion of City Explorer.
+- **[Get started with the ArcGIS Maps SDK for JavaScript](https://developers.arcgis.com/javascript/latest/get-api/index.html)**: includes a no-build-tools, CDN-based setup like these demos.
+- **[ArcGIS Location Platform](https://location.arcgis.com/)**: sign in to manage credentials and services.
+- **[Create an ArcGIS API key](https://developers.arcgis.com/documentation/security-and-authentication/api-key-authentication/tutorials/create-an-api-key/location-platform/)**: official step-by-step tutorial, including service privileges and referrer restrictions.
 
 ## Takeaway
 
