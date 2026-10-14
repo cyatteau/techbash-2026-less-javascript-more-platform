@@ -5,7 +5,7 @@ Courtney Yatteau | TechBash 2026
 
 These are the demos and audience slides from the talk. The theme is to let the browser own generic interface behavior while using JavaScript intentionally for application-specific work. Even when a framework, component library, or AI assistant generates the code, it's worth asking which behaviors the app really needs to maintain.
 
-**[View the slides (PDF, without speaker notes)](Slides.pdf)**
+**[View the slides](Slides.pdf)**
 
 ## Before another event listener, PAUSE
 
