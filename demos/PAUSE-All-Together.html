@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PAUSE: One Small Page</title>
+    <style>
+      body {
+        font:
+          18px/1.5 system-ui,
+          sans-serif;
+        margin: 0;
+        background: #f5f6fc;
+        color: #20233b;
+      }
+      header {
+        background: #292344;
+        color: white;
+        padding: 24px max(20px, calc((100vw - 940px) / 2));
+      }
+      header h1 {
+        margin: 0;
+        font-size: 32px;
+      }
+      header p {
+        margin: 5px 0 0;
+        color: #ddd9f0;
+      }
+      main {
+        max-width: 940px;
+        margin: 28px auto;
+        padding: 0 20px 50px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+      section {
+        padding: 20px;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 2px 14px #241d4517;
+      }
+      h2 {
+        margin: 0 0 8px;
+        font-size: 22px;
+      }
+      p {
+        margin: 8px 0 14px;
+      }
+      button {
+        background: #5d4cc5;
+        border: 0;
+        border-radius: 8px;
+        color: white;
+        padding: 10px 15px;
+        font: inherit;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #40339f;
+      }
+      button:focus-visible,
+      input:focus-visible {
+        outline: 3px solid #ffad38;
+        outline-offset: 3px;
+      }
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 5px 0 10px;
+        padding: 9px;
+        font: inherit;
+        border: 1px solid #b1b1c4;
+        border-radius: 7px;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+      }
+      dialog {
+        border: 0;
+        border-radius: 14px;
+        max-width: 480px;
+        padding: 28px;
+        box-shadow: 0 8px 40px #1410255c;
+      }
+      dialog::backdrop {
+        background: #25234196;
+      }
+      [popover] {
+        border: 1px solid #bab2eb;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 8px 30px #14102530;
+        max-width: 260px;
+      }
+      #success {
+        color: #1e7151;
+        font-weight: 600;
+      }
+      .tag {
+        color: #65569e;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        font-size: 12px;
+      }
+      .small {
+        color: #52536b;
+        font-size: 14px;
+      }
+      #view-results {
+        min-height: 55px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+          animation-duration: 0.01ms !important;
+        }
+      }
+      @media (max-width: 680px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>One page. Less JavaScript.</h1>
+      <p>Four familiar browser features working together.</p>
+    </header>
+    <main>
+      <div class="grid">
+        <section>
+          <div class="tag">1 · DIALOG + INVOKER COMMANDS</div>
+          <h2>Need more details?</h2>
+          <p>
+            A button opens a native modal without an open-modal click listener.
+          </p>
+          <button command="show-modal" commandfor="info-dialog">
+            View details
+          </button>
+        </section>
+        <section>
+          <div class="tag">2 · POPOVER</div>
+          <h2>Quick help</h2>
+          <p>Open the panel, click outside it, or press Escape.</p>
+          <button popovertarget="help-popover">Open tips</button>
+          <div id="help-popover" popover>
+            <strong>A built-in panel!</strong>
+            <p>The browser handles showing and dismissing it.</p>
+          </div>
+        </section>
+        <section>
+          <div class="tag">3 · NATIVE FORM VALIDATION</div>
+          <h2>Join the list</h2>
+          <form id="signup-form">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              required
+            />
+            <label for="guests">Number of guests (1–5)</label>
+            <input
+              id="guests"
+              name="guests"
+              type="number"
+              min="1"
+              max="5"
+              required
+            />
+            <button type="submit">Sign up</button>
+          </form>
+          <p id="success" role="status"></p>
+        </section>
+        <section>
+          <div class="tag">4 · VIEW TRANSITIONS</div>
+          <h2>Switch the view</h2>
+          <div id="view-results">
+            <div id="list-view">
+              <p>Choose a place: <strong>Lincoln Memorial</strong></p>
+              <button id="explore">Explore place</button>
+            </div>
+            <div id="detail-view" hidden>
+              <p>
+                <strong>Lincoln Memorial</strong>: a famous landmark in
+                Washington, DC.
+              </p>
+              <button id="back">Back to list</button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <p class="small">
+        <strong>PAUSE:</strong> P Pause · A Ask · U Use · S Study · E Employ
+        JavaScript where it adds value.
+      </p>
+    </main>
+    <dialog id="info-dialog" aria-labelledby="dialog-title">
+      <h2 id="dialog-title">Native dialog</h2>
+      <p>
+        This modal uses HTML commands, so the browser handles opening, Escape,
+        backdrop and background inertness.
+      </p>
+      <button command="close" commandfor="info-dialog">Close</button>
+    </dialog>
+    <script>
+      document
+        .querySelector("#signup-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          document.querySelector("#success").textContent =
+            "Thanks! This is a demo; nothing was sent.";
+        });
+      function changeView(showDetails) {
+        const update = () => {
+          document.querySelector("#list-view").hidden = showDetails;
+          document.querySelector("#detail-view").hidden = !showDetails;
+        };
+        if (document.startViewTransition) document.startViewTransition(update);
+        else update();
+      }
+      document
+        .querySelector("#explore")
+        .addEventListener("click", () => changeView(true));
+      document
+        .querySelector("#back")
+        .addEventListener("click", () => changeView(false));
+    </script>
+  </body>
+</html>

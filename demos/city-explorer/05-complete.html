@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,230 +10,229 @@
       var esriConfig = {
         apiKeys: {
           basemapStyles:
-            "YOUR_FRESH_RESTRICTED_ARCGIS_API_KEY"
-        }
-      }
+            "YOUR_FRESH_RESTRICTED_ARCGIS_API_KEY",
+        },
+      };
     </script>
 
     <script type="module" src="https://js.arcgis.com/5.1/"></script>
-  
+
     <style>
-* {
-  box-sizing: border-box;
-}
+      * {
+        box-sizing: border-box;
+      }
 
-html,
-body {
-  margin: 0;
-  height: 100%;
-  font-family: system-ui, sans-serif;
-}
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        font-family: system-ui, sans-serif;
+      }
 
-body {
-  display: flex;
-  flex-direction: column;
-}
+      body {
+        display: flex;
+        flex-direction: column;
+      }
 
-header {
-  padding: 1rem 2rem;
-  border-bottom: 1px solid #ddd;
-}
+      header {
+        padding: 1rem 2rem;
+        border-bottom: 1px solid #ddd;
+      }
 
-header h1 {
-  margin: 0;
-}
+      header h1 {
+        margin: 0;
+      }
 
-header p {
-  margin: 0.25rem 0 0;
-  color: #555;
-}
+      header p {
+        margin: 0.25rem 0 0;
+        color: #555;
+      }
 
-main {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  flex: 1;
-  min-height: 0;
-}
+      main {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        flex: 1;
+        min-height: 0;
+      }
 
-arcgis-map {
-  width: 100%;
-  height: 100%;
-}
+      arcgis-map {
+        width: 100%;
+        height: 100%;
+      }
 
-#places {
-  padding: 1rem;
-  overflow-y: auto;
-  border-left: 1px solid #ddd;
-}
+      #places {
+        padding: 1rem;
+        overflow-y: auto;
+        border-left: 1px solid #ddd;
+      }
 
-#places h2 {
-  margin-top: 0;
-}
+      #places h2 {
+        margin-top: 0;
+      }
 
-#place-list {
-  display: grid;
-  gap: 1rem;
-}
+      #place-list {
+        display: grid;
+        gap: 1rem;
+      }
 
-.place-card {
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 0.5rem;
-  background: white;
-}
+      .place-card {
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        background: white;
+      }
 
-.place-card h3 {
-  margin: 0.5rem 0;
-}
+      .place-card h3 {
+        margin: 0.5rem 0;
+      }
 
-.place-card p {
-  margin: 0 0 1rem;
-  color: #555;
-}
+      .place-card p {
+        margin: 0 0 1rem;
+        color: #555;
+      }
 
-.category {
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
+      .category {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
 
-/* -------------------------
+      /* -------------------------
    Place card buttons
 ------------------------- */
 
-.view-details,
-.focus-place {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #777;
-  border-radius: 0.35rem;
-  font: inherit;
-  cursor: pointer;
-}
+      .view-details,
+      .focus-place {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #777;
+        border-radius: 0.35rem;
+        font: inherit;
+        cursor: pointer;
+      }
 
-.view-details {
-  background: white;
-  color: #222;
-}
+      .view-details {
+        background: white;
+        color: #222;
+      }
 
-.focus-place {
-  margin-left: 0.4rem;
-  background: #222;
-  color: white;
-}
+      .focus-place {
+        margin-left: 0.4rem;
+        background: #222;
+        color: white;
+      }
 
-.view-details:hover,
-.focus-place:hover {
-  opacity: 0.8;
-}
+      .view-details:hover,
+      .focus-place:hover {
+        opacity: 0.8;
+      }
 
-/* -------------------------
+      /* -------------------------
    Dialog
 ------------------------- */
 
-.place-dialog {
-  width: min(90vw, 500px);
-  padding: 2rem;
+      .place-dialog {
+        width: min(90vw, 500px);
+        padding: 2rem;
 
-  border: 0;
-  border-radius: 0.75rem;
+        border: 0;
+        border-radius: 0.75rem;
 
-  box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.25);
-}
+        box-shadow: 0 1rem 3rem rgb(0 0 0 / 0.25);
+      }
 
-.place-dialog::backdrop {
-  background: rgb(0 0 0 / 0.45);
-}
+      .place-dialog::backdrop {
+        background: rgb(0 0 0 / 0.45);
+      }
 
-.modal-close {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+      .modal-close {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
 
-  border: 0;
-  background: transparent;
+        border: 0;
+        background: transparent;
 
-  font-size: 1.75rem;
-  cursor: pointer;
-}
+        font-size: 1.75rem;
+        cursor: pointer;
+      }
 
-/* -------------------------
+      /* -------------------------
    Hidden content
 ------------------------- */
 
-[hidden] {
-  display: none !important;
-}
+      [hidden] {
+        display: none !important;
+      }
 
-/* -------------------------
+      /* -------------------------
    Filter popover
 ------------------------- */
 
-#filter-button {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.75rem;
-  font: inherit;
-  cursor: pointer;
-}
+      #filter-button {
+        margin-bottom: 1rem;
+        padding: 0.5rem 0.75rem;
+        font: inherit;
+        cursor: pointer;
+      }
 
-#filter-popover {
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.2);
-}
+      #filter-popover {
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 0.2);
+      }
 
-#filter-popover fieldset {
-  display: grid;
-  gap: 0.5rem;
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
+      #filter-popover fieldset {
+        display: grid;
+        gap: 0.5rem;
+        border: 0;
+        padding: 0;
+        margin: 0;
+      }
 
-#filter-popover legend {
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
+      #filter-popover legend {
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
 
-/* -------------------------
+      /* -------------------------
    Selected place view
 ------------------------- */
 
-#selected-place {
-  padding: 1rem 0;
-}
+      #selected-place {
+        padding: 1rem 0;
+      }
 
-#selected-place h2 {
-  margin: 0.5rem 0;
-}
+      #selected-place h2 {
+        margin: 0.5rem 0;
+      }
 
-#selected-place p {
-  color: #555;
-}
+      #selected-place p {
+        color: #555;
+      }
 
-#back-button {
-  margin-bottom: 1.5rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #777;
-  border-radius: 0.35rem;
-  background: white;
-  font: inherit;
-  cursor: pointer;
-}
+      #back-button {
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #777;
+        border-radius: 0.35rem;
+        background: white;
+        font: inherit;
+        cursor: pointer;
+      }
 
-#back-button:hover {
-  background: #f3f3f3;
-}
+      #back-button:hover {
+        background: #f3f3f3;
+      }
 
-/* -------------------------
+      /* -------------------------
    View Transitions
 ------------------------- */
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.4s;
-}
-
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation-duration: 0.4s;
+      }
     </style>
   </head>
 
@@ -321,69 +320,69 @@ arcgis-map {
 
       <p id="modal-address"></p>
     </dialog>
-  
-    <script type="module">
-const places = [
-  {
-    id: "lincoln-memorial",
-    name: "Lincoln Memorial",
-    category: "Monument",
-    address: "2 Lincoln Memorial Cir NW, Washington, DC",
-    longitude: -77.0502,
-    latitude: 38.8893,
-  },
-  {
-    id: "washington-monument",
-    name: "Washington Monument",
-    category: "Monument",
-    address: "2 15th St NW, Washington, DC",
-    longitude: -77.0353,
-    latitude: 38.8895,
-  },
-  {
-    id: "natural-history",
-    name: "National Museum of Natural History",
-    category: "Museum",
-    address: "10th St & Constitution Ave NW, Washington, DC",
-    longitude: -77.026,
-    latitude: 38.8913,
-  },
-  {
-    id: "wharf",
-    name: "The Wharf",
-    category: "Food & Entertainment",
-    address: "760 Maine Ave SW, Washington, DC",
-    longitude: -77.0261,
-    latitude: 38.879,
-  },
-  {
-    id: "national-gallery",
-    name: "National Gallery of Art",
-    category: "Museum",
-    address: "Constitution Ave NW, Washington, DC",
-    longitude: -77.0199,
-    latitude: 38.8913,
-  },
-  {
-    id: "meridian-hill",
-    name: "Meridian Hill Park",
-    category: "Park",
-    address: "16th St NW & W St NW, Washington, DC",
-    longitude: -77.0365,
-    latitude: 38.9211,
-  },
-];
 
-/* -------------------------
+    <script type="module">
+      const places = [
+        {
+          id: "lincoln-memorial",
+          name: "Lincoln Memorial",
+          category: "Monument",
+          address: "2 Lincoln Memorial Cir NW, Washington, DC",
+          longitude: -77.0502,
+          latitude: 38.8893,
+        },
+        {
+          id: "washington-monument",
+          name: "Washington Monument",
+          category: "Monument",
+          address: "2 15th St NW, Washington, DC",
+          longitude: -77.0353,
+          latitude: 38.8895,
+        },
+        {
+          id: "natural-history",
+          name: "National Museum of Natural History",
+          category: "Museum",
+          address: "10th St & Constitution Ave NW, Washington, DC",
+          longitude: -77.026,
+          latitude: 38.8913,
+        },
+        {
+          id: "wharf",
+          name: "The Wharf",
+          category: "Food & Entertainment",
+          address: "760 Maine Ave SW, Washington, DC",
+          longitude: -77.0261,
+          latitude: 38.879,
+        },
+        {
+          id: "national-gallery",
+          name: "National Gallery of Art",
+          category: "Museum",
+          address: "Constitution Ave NW, Washington, DC",
+          longitude: -77.0199,
+          latitude: 38.8913,
+        },
+        {
+          id: "meridian-hill",
+          name: "Meridian Hill Park",
+          category: "Park",
+          address: "16th St NW & W St NW, Washington, DC",
+          longitude: -77.0365,
+          latitude: 38.9211,
+        },
+      ];
+
+      /* -------------------------
    Render place cards
 ------------------------- */
 
-function renderPlaceCards() {
-  const placeList = document.querySelector("#place-list");
+      function renderPlaceCards() {
+        const placeList = document.querySelector("#place-list");
 
-  placeList.innerHTML = places
-    .map(
-      (place) => `
+        placeList.innerHTML = places
+          .map(
+            (place) => `
         <article
           class="place-card"
           data-category="${place.category}"
@@ -413,148 +412,153 @@ function renderPlaceCards() {
           </button>
         </article>
       `,
-    )
-    .join("");
-}
+          )
+          .join("");
+      }
 
-renderPlaceCards();
+      renderPlaceCards();
 
-/* -------------------------
+      /* -------------------------
    ArcGIS map
 ------------------------- */
 
-const mapElement = document.querySelector("#map");
+      const mapElement = document.querySelector("#map");
 
-const Graphic = await $arcgis.import("@arcgis/core/Graphic.js");
+      const Graphic = await $arcgis.import("@arcgis/core/Graphic.js");
 
-await mapElement.viewOnReady();
+      await mapElement.viewOnReady();
 
-for (const place of places) {
-  const graphic = new Graphic({
-    geometry: {
-      type: "point",
-      longitude: place.longitude,
-      latitude: place.latitude,
-    },
+      for (const place of places) {
+        const graphic = new Graphic({
+          geometry: {
+            type: "point",
+            longitude: place.longitude,
+            latitude: place.latitude,
+          },
 
-    symbol: {
-      type: "simple-marker",
-      size: 10,
-      color: "white",
-      outline: {
-        color: "black",
-        width: 2,
-      },
-    },
+          symbol: {
+            type: "simple-marker",
+            size: 10,
+            color: "white",
+            outline: {
+              color: "black",
+              width: 2,
+            },
+          },
 
-    attributes: {
-      id: place.id,
-      name: place.name,
-      category: place.category,
-    },
-  });
+          attributes: {
+            id: place.id,
+            name: place.name,
+            category: place.category,
+          },
+        });
 
-  mapElement.graphics.add(graphic);
-}
+        mapElement.graphics.add(graphic);
+      }
 
-/* -------------------------
+      /* -------------------------
    Dialog content
 ------------------------- */
 
-const modalTitle = document.querySelector("#modal-title");
-const modalCategory = document.querySelector("#modal-category");
-const modalAddress = document.querySelector("#modal-address");
+      const modalTitle = document.querySelector("#modal-title");
+      const modalCategory = document.querySelector("#modal-category");
+      const modalAddress = document.querySelector("#modal-address");
 
-document.querySelectorAll(".view-details").forEach((button) => {
-  button.addEventListener("click", () => {
-    const place = places.find((place) => place.id === button.dataset.placeId);
+      document.querySelectorAll(".view-details").forEach((button) => {
+        button.addEventListener("click", () => {
+          const place = places.find(
+            (place) => place.id === button.dataset.placeId,
+          );
 
-    if (!place) {
-      return;
-    }
+          if (!place) {
+            return;
+          }
 
-    modalTitle.textContent = place.name;
-    modalCategory.textContent = place.category;
-    modalAddress.textContent = place.address;
-  });
-});
+          modalTitle.textContent = place.name;
+          modalCategory.textContent = place.category;
+          modalAddress.textContent = place.address;
+        });
+      });
 
-/* -------------------------
+      /* -------------------------
    Category filtering
 ------------------------- */
 
-const categoryInputs = document.querySelectorAll('input[name="category"]');
+      const categoryInputs = document.querySelectorAll(
+        'input[name="category"]',
+      );
 
-categoryInputs.forEach((input) => {
-  input.addEventListener("change", () => {
-    const selectedCategory = input.value;
+      categoryInputs.forEach((input) => {
+        input.addEventListener("change", () => {
+          const selectedCategory = input.value;
 
-    document.querySelectorAll(".place-card").forEach((card) => {
-      const matches =
-        selectedCategory === "all" ||
-        card.dataset.category === selectedCategory;
+          document.querySelectorAll(".place-card").forEach((card) => {
+            const matches =
+              selectedCategory === "all" ||
+              card.dataset.category === selectedCategory;
 
-      card.hidden = !matches;
-    });
+            card.hidden = !matches;
+          });
 
-    mapElement.graphics.forEach((graphic) => {
-      const matches =
-        selectedCategory === "all" ||
-        graphic.attributes.category === selectedCategory;
+          mapElement.graphics.forEach((graphic) => {
+            const matches =
+              selectedCategory === "all" ||
+              graphic.attributes.category === selectedCategory;
 
-      graphic.visible = matches;
-    });
-  });
-});
+            graphic.visible = matches;
+          });
+        });
+      });
 
-/* -------------------------
+      /* -------------------------
    View Transitions
 ------------------------- */
 
-const placeList = document.querySelector("#place-list");
-const selectedPlace = document.querySelector("#selected-place");
+      const placeList = document.querySelector("#place-list");
+      const selectedPlace = document.querySelector("#selected-place");
 
-const selectedTitle = document.querySelector("#selected-title");
-const selectedCategory = document.querySelector("#selected-category");
-const selectedAddress = document.querySelector("#selected-address");
+      const selectedTitle = document.querySelector("#selected-title");
+      const selectedCategory = document.querySelector("#selected-category");
+      const selectedAddress = document.querySelector("#selected-address");
 
-const backButton = document.querySelector("#back-button");
+      const backButton = document.querySelector("#back-button");
 
-function transitionTo(updateDOM) {
-  if (!document.startViewTransition) {
-    updateDOM();
-    return;
-  }
+      function transitionTo(updateDOM) {
+        if (!document.startViewTransition) {
+          updateDOM();
+          return;
+        }
 
-  document.startViewTransition(updateDOM);
-}
+        document.startViewTransition(updateDOM);
+      }
 
-document.querySelectorAll(".focus-place").forEach((button) => {
-  button.addEventListener("click", () => {
-    const place = places.find((place) => place.id === button.dataset.placeId);
+      document.querySelectorAll(".focus-place").forEach((button) => {
+        button.addEventListener("click", () => {
+          const place = places.find(
+            (place) => place.id === button.dataset.placeId,
+          );
 
-    if (!place) {
-      return;
-    }
+          if (!place) {
+            return;
+          }
 
-    transitionTo(() => {
-      selectedTitle.textContent = place.name;
-      selectedCategory.textContent = place.category;
-      selectedAddress.textContent = place.address;
+          transitionTo(() => {
+            selectedTitle.textContent = place.name;
+            selectedCategory.textContent = place.category;
+            selectedAddress.textContent = place.address;
 
-      placeList.hidden = true;
-      selectedPlace.hidden = false;
-    });
-  });
-});
+            placeList.hidden = true;
+            selectedPlace.hidden = false;
+          });
+        });
+      });
 
-backButton.addEventListener("click", () => {
-  transitionTo(() => {
-    selectedPlace.hidden = true;
-    placeList.hidden = false;
-  });
-});
-
+      backButton.addEventListener("click", () => {
+        transitionTo(() => {
+          selectedPlace.hidden = true;
+          placeList.hidden = false;
+        });
+      });
     </script>
   </body>
 </html>

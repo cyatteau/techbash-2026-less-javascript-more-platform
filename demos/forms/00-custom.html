@@ -1,73 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Event Registration</title>
-  
+
     <style>
-* {
-  box-sizing: border-box;
-}
+      * {
+        box-sizing: border-box;
+      }
 
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #f5f5f5;
-}
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #f5f5f5;
+      }
 
-main {
-  width: min(90%, 500px);
-  margin: 4rem auto;
-  padding: 2rem;
+      main {
+        width: min(90%, 500px);
+        margin: 4rem auto;
+        padding: 2rem;
 
-  background: white;
-  border-radius: 0.75rem;
-}
+        background: white;
+        border-radius: 0.75rem;
+      }
 
-form {
-  display: grid;
-  gap: 1.25rem;
-}
+      form {
+        display: grid;
+        gap: 1.25rem;
+      }
 
-label {
-  display: grid;
-  gap: 0.4rem;
-}
+      label {
+        display: grid;
+        gap: 0.4rem;
+      }
 
-input {
-  padding: 0.65rem;
-  font: inherit;
-}
+      input {
+        padding: 0.65rem;
+        font: inherit;
+      }
 
-button {
-  padding: 0.7rem 1rem;
-  font: inherit;
-  cursor: pointer;
-}
+      button {
+        padding: 0.7rem 1rem;
+        font: inherit;
+        cursor: pointer;
+      }
 
-.error {
-  min-height: 1rem;
-  font-size: 0.85rem;
-  color: #b00020;
-}
+      .error {
+        min-height: 1rem;
+        font-size: 0.85rem;
+        color: #b00020;
+      }
 
-.focus-place {
-  margin-left: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  font: inherit;
-  cursor: pointer;
-}
+      .focus-place {
+        margin-left: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        font: inherit;
+        cursor: pointer;
+      }
 
-#selected-place {
-  padding: 1rem;
-}
+      #selected-place {
+        padding: 1rem;
+      }
 
-#back-button {
-  margin-bottom: 1.5rem;
-}
-
+      #back-button {
+        margin-bottom: 1.5rem;
+      }
     </style>
   </head>
 
@@ -99,55 +98,54 @@ button {
 
       <p id="success-message" hidden>Registration submitted!</p>
     </main>
-  
+
     <script type="module">
-const form = document.querySelector("#registration-form");
+      const form = document.querySelector("#registration-form");
 
-const nameInput = document.querySelector("#name");
-const emailInput = document.querySelector("#email");
-const attendeesInput = document.querySelector("#attendees");
+      const nameInput = document.querySelector("#name");
+      const emailInput = document.querySelector("#email");
+      const attendeesInput = document.querySelector("#attendees");
 
-const nameError = document.querySelector("#name-error");
-const emailError = document.querySelector("#email-error");
-const attendeesError = document.querySelector("#attendees-error");
+      const nameError = document.querySelector("#name-error");
+      const emailError = document.querySelector("#email-error");
+      const attendeesError = document.querySelector("#attendees-error");
 
-const successMessage = document.querySelector("#success-message");
+      const successMessage = document.querySelector("#success-message");
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-  let isValid = true;
+        let isValid = true;
 
-  nameError.textContent = "";
-  emailError.textContent = "";
-  attendeesError.textContent = "";
-  successMessage.hidden = true;
+        nameError.textContent = "";
+        emailError.textContent = "";
+        attendeesError.textContent = "";
+        successMessage.hidden = true;
 
-  if (nameInput.value.trim() === "") {
-    nameError.textContent = "Please enter your name.";
-    isValid = false;
-  }
+        if (nameInput.value.trim() === "") {
+          nameError.textContent = "Please enter your name.";
+          isValid = false;
+        }
 
-  if (emailInput.value.trim() === "" || !emailInput.value.includes("@")) {
-    emailError.textContent = "Please enter a valid email.";
-    isValid = false;
-  }
+        if (emailInput.value.trim() === "" || !emailInput.value.includes("@")) {
+          emailError.textContent = "Please enter a valid email.";
+          isValid = false;
+        }
 
-  const attendeeCount = Number(attendeesInput.value);
+        const attendeeCount = Number(attendeesInput.value);
 
-  if (!attendeesInput.value || attendeeCount < 1 || attendeeCount > 10) {
-    attendeesError.textContent = "Choose between 1 and 10 attendees.";
+        if (!attendeesInput.value || attendeeCount < 1 || attendeeCount > 10) {
+          attendeesError.textContent = "Choose between 1 and 10 attendees.";
 
-    isValid = false;
-  }
+          isValid = false;
+        }
 
-  if (!isValid) {
-    return;
-  }
+        if (!isValid) {
+          return;
+        }
 
-  successMessage.hidden = false;
-});
-
+        successMessage.hidden = false;
+      });
     </script>
   </body>
 </html>
